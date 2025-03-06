@@ -24,3 +24,51 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.flex-row {
+  display: flex;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.table-cell {
+  padding: 0 10px;
+}
+
+.table-cell-header {
+  font-weight: bold;
+}
+
+.available-circle {
+  display: block;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(30, 228, 109);
+  margin-right: 20px;
+}
+
+button {
+  margin: 0 20px;
+}
+
+button:disabled,
+button[disabled] {
+  color: #cccccc;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+th,
+tr,
+td {
+  border: 1px solid #171717;
+  padding: 10px;
+}
+
+.table-status-cell {
+  display: flex;
+  align-items: center;
+}
