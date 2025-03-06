@@ -1,3 +1,5 @@
+// Creating Text And other constants which can be handled easily
+
 export const TEXT = {
   HEADER: "Datagrid",
   NONE_SELECTED: "None Selected",

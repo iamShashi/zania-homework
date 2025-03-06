@@ -3,8 +3,9 @@
 // contants
 import { ProgramRecords } from "@/app/constants";
 import { TEXT, TABLE_HEADERS, CHECKBOX_STATES } from "./constants";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
+// interface ProgramRecord to Type check data
 interface ProgramRecord {
   name: string;
   device: string;
@@ -12,14 +13,20 @@ interface ProgramRecord {
   status: string;
 }
 
+// dataTable component
 const DataTable = ({}) => {
   const { NONE_SELECTED, DONWLOAD_SELCTED, SELECTED } = TEXT;
-  const [allCheckboxSelected, setAllChecboxSelected] = useState(false);
+  const [allCheckboxSelected, setAllChecboxSelected] = useState<boolean>(false);
+
+  // initialising with all the checkboxes selected
   const [selectedCheckBox, setSelectedChekBox] = useState<boolean[]>(
     Array(ProgramRecords.length).fill(false)
   );
 
+  // when all checkbox select checkbox is toggled
   const onToggleSelectCheckBox = () => {
+    // we simply toggle all the individual check boxes
+    // as well as out main select all checkbox
     if (!allCheckboxSelected)
       setSelectedChekBox(selectedCheckBox.map(() => true));
     else setSelectedChekBox(selectedCheckBox.map(() => false));
@@ -27,21 +34,29 @@ const DataTable = ({}) => {
   };
 
   const onDownloadClick = () => {
+    // onDownloadButtonclick we simply
+    // iterate through all the available checkboxes and download them
     let alertDownloadMessage = "";
-    ProgramRecords.map((record) => {
+    ProgramRecords.map((record: ProgramRecord) => {
       if (record.status === CHECKBOX_STATES.AVAILABLE) {
         alertDownloadMessage = alertDownloadMessage + record.path + "\n";
       }
     });
 
+    // alert to fire alert
     alert(`${TEXT.DOWNLOADED_ITEMS}\n${alertDownloadMessage}`);
   };
 
+  // to keep the countupdated when
+  // new check box is toggleds
   const countSelected = useMemo(() => {
     return selectedCheckBox.filter((checkbox) => checkbox).length;
   }, selectedCheckBox);
 
+  // to check should we enable download button
   const shouldEnableDownload = useMemo(() => {
+    // we simply check if wrong boxes are not checked and its length should be 0
+    // so we put in the conditions for wrong selections in or state
     const filterdata = ProgramRecords.filter(
       (record, index) =>
         (record.status === CHECKBOX_STATES.AVAILABLE &&
@@ -52,6 +67,8 @@ const DataTable = ({}) => {
     return filterdata.length === 0;
   }, selectedCheckBox);
 
+  // on each individual checkbox if selected we simply show and update
+  // our all checkbox selected state data
   const onIndividualCheckBoxClick = (index: number) => {
     setSelectedChekBox((prevState) => {
       const newSelectedCheckBoxes = [...prevState];

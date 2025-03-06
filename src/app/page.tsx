@@ -1,3 +1,7 @@
+// importing libs
+import React from "react";
+
+// importing DataTable component
 import DataTable from "./components/DataTable";
 
 export default function Home() {
